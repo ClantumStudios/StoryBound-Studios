@@ -1,0 +1,10 @@
+[
+    {
+        "name": "The Book that Writes Itself",
+        "banner": "assets/Book1Banner.png",
+        "description": "A Fictional story on a book that wrote itself",
+        "isupcoming": true,
+        "link1": "#",
+        "link2": "#"
+    }
+]

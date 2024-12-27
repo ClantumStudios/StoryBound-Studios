@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles_products.css">
+    <title>StoryBound Studios</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <img src="assets/StoryBoundLogo.png" alt="StoryBound Logo" class="logo">
+        </div>
+        <div class="off-screen-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="team.html">Owners</a></li>
+                <li><a href="news.html">News</a></li>
+            </ul>
+        </div>
+        <nav>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1 style="font-family: JB; letter-spacing: 2pt;">Products</h1>
+        <h2 style="font-family: Playfair;">All the products from beginning</h2>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <!-- Modal Structure -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Product Image">
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <div id="modalLinks">
+                <a id="modalLink1" href="#" target="_blank">Link 1</a>
+                <a id="modalLink2" href="#" target="_blank">Link 2</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; StoryBound Studios. All Rights Reserved.
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        // Fetch products and populate the grid
+        fetch('dynamicdata/product.json')
+            .then(response => response.json())
+            .then(products => {
+                const productGrid = document.getElementById('productGrid');
+
+                // Loop through each product and create a card
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.dataset.name = product.name;
+                    card.dataset.banner = product.banner;
+                    card.dataset.description = product.description;
+                    card.dataset.isupcoming = product.isupcoming;
+                    card.dataset.link1 = product.link1;
+                    card.dataset.link2 = product.link2;
+
+                    productGrid.appendChild(card);
+                    // Check if the product is upcoming and add a badge if true
+                    const upcomingBadge = product.isupcoming
+                        ? '<span class="badge">Upcoming</span>'
+                        : '';
+
+                    // Populate the card with product details
+                    card.innerHTML = `
+                        ${upcomingBadge}
+                        <img src="${product.banner}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                    `;
+
+                    // Add event listener for modal
+                    card.addEventListener('click', () => {
+                        openModal(product);
+                    });
+
+                    productGrid.appendChild(card);
+                });
+            })
+            .catch(error => console.error('Error loading product data:', error));
+
+        // Modal functionality
+        const modal = document.getElementById('productModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalLink1 = document.getElementById('modalLink1');
+        const modalLink2 = document.getElementById('modalLink2');
+        const closeModal = document.querySelector('.close');
+
+        function openModal(product) {
+            modal.style.display = 'block';
+            modalImage.src = product.banner;
+            modalTitle.textContent = product.name;
+            modalDescription.textContent = product.description;
+            modalLink1.href = product.link1;
+            modalLink2.href = product.link2;
+            modalLink1.textContent = product.link1.includes('http') ? 'More Info' : 'PDF file';
+            modalLink2.textContent = product.link2.includes('http') ? 'More Info' : 'Wattpad';
+        }
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

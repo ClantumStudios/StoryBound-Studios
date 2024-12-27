@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/ClantumLogoLight.svg" type="image/x-icon">
+    <title>Powerz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="assets/Owner1(PFP).png" alt="Profile Picture">
+            </div>
+            <h1>Powerz</h1>
+            <p><b>The Source of Creativity</b><br> Within these walls, my craft weaves ideas into masterpeices.</p>
+            <div class="icon-buttons">
+                <button class="grey-button" onclick="window.open('https://ffm.to/f872d1fb1d7541858a206c566a99043d')">
+                    <p> Memories hit hard... </p>
+                </button>
+                <button class="green-button"
+                    onclick="window.open('https://open.spotify.com/artist/2M5d0M0oGo0cXM5K0LZJFU?si=0fd9a96c04124398')">
+                    <img src="assets/Spotify.png" alt="Spotify"> &nbsp Spotify
+                </button>
+                <button class="red-button" onclick="window.open('https://youtube.com/@Powerz559_CyberCoder')">
+                    <img src="assets/Youtube.png" alt="YouTube"> YouTube
+                </button>
+                <button class="blue-button" onclick="window.open('https://discord.com/invite/qDYaadzxns')">
+                    <img src="assets/Discord.png" alt="Discord"> &nbsp Discord
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <h2>Powerz</h2>
+            <h3>male (straight)</h3>
+            <h3 id="agePartial">%age% years old (08/03/2010)</h3>
+            <a href="mailto:warriorshiva1234@gmail.com" style="text-decoration: underline; color: white;"><h3>warriorshiva1234@gmail.com</h3></a>
+            <p>
+                Hey! I’m Powerz, a 15-year-old from the middle of India. I’m into a bunch of cool stuff, even though I’m
+                not a pro at everything yet. Aviation’s my main vibe, and I love making music. I’m also a programmer, a
+                casual gamer, a UI/UX designer on the side, and a part-time YouTuber. Always up for trying new things
+                and leveling up!
+            <p>
+                I’m the founder of Clantum Studios and the creator of the server as a whole. I also founded QuantumOS
+                (now GalaxyOS). Honestly, being in charge of something big isn’t as easy as it seems, but it’s not as
+                hard as you’d imagine either—it’s all about finding the right balance.
+            </p>
+        </div>
+    </div>
+    <script>
+        function calculateAge(birthDate, otherDate) {
+            birthDate = new Date(birthDate);
+            otherDate = new Date(otherDate);
+
+            var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+            if (
+                otherDate.getMonth() < birthDate.getMonth() ||
+                (otherDate.getMonth() == birthDate.getMonth() &&
+                    otherDate.getDate() < birthDate.getDate())
+            ) {
+                years--;
+            }
+
+            return years;
+        }
+
+        let age = calculateAge("March 8, 2010", new Date().toDateString());
+        let agePartials = document.querySelectorAll("#agePartial");
+        let partials = [...agePartials];
+
+        partials.forEach((elm) => {
+            elm.innerText = elm.innerText.replace("%age%", age);
+        });
+    </script>
+</body>
+
+</html>

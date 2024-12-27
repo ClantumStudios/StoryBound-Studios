@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/ClantumLogoLight.svg" type="image/x-icon">
+    <title>Developer ッ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="assets/Owner2(PFP).png" alt="Profile Picture">
+            </div>
+            <h1>Developer ッ</h1>
+            <p><b>The origin of programmers.</b><br>With each line of code, I turn problems into elegant solutions.</p>
+            <div class="icon-buttons">
+                <button class="red-button" onclick="window.open('https://youtube.com/@DeveloperOfficial')">
+                    <img src="assets/Youtube.png" alt="YouTube"> YouTube
+                </button>
+                <button class="blue-button" onclick="window.open('https://discord.gg/bZH9cPtrnW')">
+                    <img src="assets/Discord.png" alt="Discord"> &nbsp Discord
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <h2>Developer</h2>
+            <h3>male (straight)</h3>
+            <h3 id="agePartial">%age% years old (29/06/2011)</h3>
+            <a href="mailto:developerclantum@gmail.com" style="text-decoration: underline; color: white;">
+                <h3>developerclantum@gmail.com</h3>
+            </a>
+            <p>
+                Hey! I’m a dev, tech YouTuber, and a part-time meme-maker. I like experimenting with Windows, exploring
+                new tech, and sharing whatever I learn along the way. Whether it’s tech tips, cool projects, or just
+                something fun, I try to keep things interesting. Stick around if that sounds like your vibe! 😊
+            <p>
+                I’m one of the founders of Clantum Studios, and I’m considered a founder because the idea for Clantum
+                Studios was inspired by my CloudOS concept. Speaking of which, I’m also the creator of CloudOS.
+                Honestly, it’s amazing to see how such a small and simple idea has grown into something so impactful and
+                fun.
+            </p>
+        </div>
+    </div>
+    <script>
+        function calculateAge(birthDate, otherDate) {
+            birthDate = new Date(birthDate);
+            otherDate = new Date(otherDate);
+
+            var years = otherDate.getFullYear() - birthDate.getFullYear();
+
+            if (
+                otherDate.getMonth() < birthDate.getMonth() ||
+                (otherDate.getMonth() == birthDate.getMonth() &&
+                    otherDate.getDate() < birthDate.getDate())
+            ) {
+                years--;
+            }
+
+            return years;
+        }
+
+        let age = calculateAge("June 29, 2011", new Date().toDateString());
+        let agePartials = document.querySelectorAll("#agePartial");
+        let partials = [...agePartials];
+
+        partials.forEach((elm) => {
+            elm.innerText = elm.innerText.replace("%age%", age);
+        });
+    </script>
+</body>
+
+</html>

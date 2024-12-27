@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles_news.css">
+    <title>StoryBound Studios</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-left">
+            <img src="assets/StoryBoundLogo.png" alt="StoryBound Logo" class="logo">
+        </div>
+        <div class="off-screen-menu">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="team.html">Owners</a></li>
+                <li><a href="news.html">News</a></li>
+            </ul>
+        </div>
+        <nav>
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1 style="font-family: JB; letter-spacing: 2pt;">News</h1>
+        <h2 style="font-family: Playfair;">Things happening in storybound</h2>
+    </div>
+
+    <div class="news-grid" id="newsGrid"></div>
+
+    <div class="modal" id="newsModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="News Image">
+            <h1 id="modalTitle"></h1>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; StoryBound Studios. All Rights Reserved.
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+fetch('dynamicdata/news.json')
+    .then(response => response.json())
+    .then(news => {
+        const newsGrid = document.getElementById('newsGrid');
+        const modal = document.getElementById('newsModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+
+        // Loop through each news item and create a card
+        news.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'news-card';
+
+            // Populate the card with news details
+            card.innerHTML = `
+                <img src="${item.banner}" alt="${item.title}">
+                <h3>${item.title}</h3>
+            `;
+
+            // Add click event to open modal
+            card.addEventListener('click', () => {
+                modal.classList.add('show');
+                modalImage.src = item.image;
+                modalTitle.textContent = item.title;
+                modalDescription.textContent = item.description;
+            });
+
+            newsGrid.appendChild(card);
+        });
+
+        // Close modal on clicking the close button
+        closeModal.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        // Close modal on clicking outside the content
+        window.addEventListener('click', event => {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+    })
+    .catch(error => console.error('Error loading news data:', error));
+
+    </script>
+</body>
+
+</html>
